@@ -18,10 +18,14 @@ model User {
   password    String
   phoneNumber Int
   reports     Report[]
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
 }
 
 model Report {
-  id      Int  @id @default(autoincrement())
-  user    User @relation(fields: [user_id], references: [id])
-  user_id Int
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [user_id], references: [id])
+  user_id    Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
 }
