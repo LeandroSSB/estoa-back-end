@@ -7,7 +7,7 @@ export const validate =
       await schema.validate(resource, { abortEarly: false });
       next();
     } catch (err) {
-      res.status(400).json({ error: err.errors.join(", ") });
+      res.status(400).json({ error: err.errors.map(a => a.toLowerCase()).join(", ") });
     }
   };
 
