@@ -1,12 +1,12 @@
 import { Router } from "express"
-
+import { userControllers } from "./../controller/index.js"
 
 export const userRouter = (app) => {
   const routerUser = Router()
 
-  routerUser.get("/", (req, res) => {
-    res.send("OK")
+  routerUser.post("", async (req, res) => {
+    await userControllers.createUser(req, res)
   })
 
-  app.use(routerUser)
+  app.use("/user", routerUser)
 }

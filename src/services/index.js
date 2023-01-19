@@ -1,5 +1,5 @@
-import * as createUser from "./user.service.js"
+import * as userServices from "./user.service.js"
 
 export {
-  createUser
+  userServices
 }
