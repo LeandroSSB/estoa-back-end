@@ -9,27 +9,37 @@ export const createUser = async (userData) => {
   const { password, confirmPassword,  ...newUser } = userData  
   const encryptPass = bcrypt.hashSync(password, salt)
   try{
-    await prisma.user.create({
+   const user = await prisma.user.create({
       data: {
         password: encryptPass,
         ...newUser
       }
     })
+
+    return user
   }catch(err){
     throw new ErrorHandler({statusCode: 409, message: "Email already exists"})
   }
 }
 
 export const deleteUser = async ({id, req}) => {
+  console.log(id, req.auth.id)
   if(req.auth.id  != id || !req.auth.type) {
     throw new ErrorHandler({statusCode: 401, message: "You do not have permission to delete this user"})
   }
   try {
-    await prisma.user.delete({
+    // await prisma.user.delete({
+    //   where: {id},
+    // })
+
+    await prisma.user.update({
       where: {id},
+      data: {
+        deleted_at: new Date().toJSON()
+      }
     })
   }catch(err) {
-    throw new ErrorHandler({statusCode: 404, message: "User does not exist"})
+    throw new ErrorHandler({statusCode: 404, message: "User not found"})
   }
   
 }

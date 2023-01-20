@@ -94,9 +94,18 @@ export const deleteReport = async ({id, req, res}) => {
   fs.unlink(report.url_doc, (err) => {
     if(err) throw new ErrorHandler({statusCode: 500, message: "file not found"})
   })
-  await prisma.report.delete({
+  // await prisma.report.delete({
+  //   where: {
+  //     id: report.id
+  //   }
+  // })
+
+  await prisma.report.update({
     where: {
       id: report.id
+    },
+    data: {
+      deleted_at: new Date().toJSON(),
     }
   })
 }

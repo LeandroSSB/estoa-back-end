@@ -11,23 +11,25 @@ datasource db {
 }
 
 model User {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   name        String
-  email       String   @unique
+  email       String    @unique
   type        Boolean
   password    String
   phoneNumber String
   reports     Report[]
-  created_at  DateTime @default(now())
-  updated_at  DateTime @default(now())
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now())
+  deleted_at  DateTime?
 }
 
 model Report {
-  id         Int      @id @default(autoincrement())
-  user       User     @relation(fields: [user_id], references: [id])
+  id         Int       @id @default(autoincrement())
+  user       User      @relation(fields: [user_id], references: [id])
   user_id    Int
   title      String
   url_doc    String
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now())
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now())
+  deleted_at DateTime?
 }
