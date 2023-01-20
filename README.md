@@ -7,6 +7,7 @@
   -  Criar um arquivo .env seguindo as intruções de .env.example
 
 
+  Para instalar as  dependências
   ```bash
   yarn 
   ```
@@ -15,7 +16,13 @@
   npm install
   ```
 
-  Para instalar as  dependências
+  Será necessário configurar o prisma
+  ```
+  yarn prisma generate && prisma migrate dev 
+
+  ```
+
+
 
   Uma vez configurado:
   ```bash
@@ -48,3 +55,4 @@
 | PATCH  | /report          | /**id** Atualiza um relatório e o pdf                                                                 |
 | DELETE | /report          | /**id** Deleta um relatório e o pdf                                                                   |
 
+para mais informações sobre como utilizar o endpoint, verifique a coleção feita no postman
