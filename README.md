@@ -33,7 +33,7 @@
 | ------ | -------------- | ------------------------------------------------------------------------------------------------------- |
 | POST   | /user          | Registro de Usuário                                                                                     |
 | POST   | /login         | Gera um token JWT recebendo email e password no corpo da requisição como JSON.                          |
-| GET    | /user          | /**id** Busca usuário por id                                                                            |
+| GET    | /user          | /**id** Busca usuário por id. Em caso de ausência do id, buscará por todos                              |
 | PATCH  | /user          | /**id** Atualiza os dados de um usuário                                                                 |
 | DELETE | /user          | /**id** Deleta usuários do banco                                                                        |
 
@@ -43,7 +43,8 @@
 | Método | Endpoint       | Responsabilidade                                                                                        |
 | ------ | -------------- | ------------------------------------------------------------------------------------------------------- |
 | POST   | /report          | Criação de relatório                                                                                  |
-| GET    | /report          | /**id** Busca de relatório por id                                                                     |
-| PATCH  | /report          | /**id** Atualiza um relatório                                                                         |
-| DELETE | /report          | /**id** Deleta um relatório                                                                           |
+| GET    | /report          | /**id** Busca de relatório por id. Em caso de ausência do id, buscará por todos                       |
+| GET    | /report/pdf      | /**id** Visualiza o pdf criado                                                                        |
+| PATCH  | /report          | /**id** Atualiza um relatório e o pdf                                                                 |
+| DELETE | /report          | /**id** Deleta um relatório e o pdf                                                                   |
 
