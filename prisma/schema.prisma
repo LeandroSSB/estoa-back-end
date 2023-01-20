@@ -26,6 +26,8 @@ model Report {
   id         Int      @id @default(autoincrement())
   user       User     @relation(fields: [user_id], references: [id])
   user_id    Int
+  title      String
+  url_doc    String
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 }

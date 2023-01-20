@@ -56,7 +56,6 @@ export const updateUser = async ({id, data, req}) => {
   return update
 }
 
-
 export const getUser = async ({id}) => {
   
   if (!id )  {

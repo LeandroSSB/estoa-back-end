@@ -24,6 +24,7 @@ export const getUser = async ({req, res, next}) => {
 
 export const updateUser = async ({req, res, next}) => { 
   try {
+    if(!req.body) throw new ErrorHandler({statusCode: 400, message: "Request cannot be" })
     const updatedUser = await userServices.updateUser({id: Number(req.params.id), data: req.body, req})
     res.send(updatedUser)
   }catch(err) {
