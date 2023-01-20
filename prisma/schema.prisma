@@ -16,7 +16,7 @@ model User {
   email       String   @unique
   type        Boolean
   password    String
-  phoneNumber Int
+  phoneNumber String
   reports     Report[]
   created_at  DateTime @default(now())
   updated_at  DateTime @default(now())

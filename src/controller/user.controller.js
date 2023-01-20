@@ -2,42 +2,61 @@ import dotenv from "dotenv"
 import jwt from "jsonwebtoken"
 import { userServices } from "./../services/index.js"
 dotenv.config()
+import config from "./../utils/jwtConfig.js"
 
-
-export const loginUser = ({req, res}) => { 
-  const secret = process.env.SECRETJWT || "insecure"
-  const expires = process.env.EXPIRESJWT || "30d"
-  const user = req.auth
-  
-  const config = {
-    secret,
-    expiresIn: expires,
-  }
-  
-  const token = jwt.sign(
-    { email: user.email, type: user.type },
-    config.secret,
-    {
-      expiresIn: config.expiresIn,
-    }
-  );
-
-  res.json({ token })
-
-}
-
-
-export const createUser = async ({req, res}) => {
+export const createUser = async ({req, res, next}) => {
   try{
     const user = await userServices.createUser(req.body)
     return res.status(201).send(user)
   }catch(err){
-    res.status(400).json({ message: err.message})
+    next(err)
   }
 }
 
-export const updateUser = ({req, res}) => { }
+export const getUser = async ({req, res, next}) => { 
+  try {
+    const user = await userServices.getUser({id: Number(req.params.id)})
+    return res.send(user)
+  }catch(err) {
+    next(err)
+  }
+}
 
-export const deleteUser = ({req, res}) => { }
+export const updateUser = async ({req, res, next}) => { 
+  try {
+    const updatedUser = await userServices.updateUser({id: Number(req.params.id), data: req.body, req})
+    res.send(updatedUser)
+  }catch(err) {
+    next(err)
+  }
+}
 
-export const getUser = ({req, res}) => { }
+export const deleteUser = async ({req, res, next}) => {
+  try {
+    await userServices.deleteUser({id: Number(req.params.id), req})
+    res.sendStatus(204)
+  }catch(err) {
+    next(err)
+  }
+ }
+
+export const loginUser = async ({req, res,next }) => { 
+    const user = req.auth
+    
+    try{
+      
+    const token = jwt.sign(
+      { email: user.email, type: user.type, id: user.id },
+      config.secret,
+      {
+        expiresIn: config.expiresIn,
+      }
+    );
+  
+    res.json({ token })
+    }catch(err) {
+      next(err)
+    }
+  
+  
+  }

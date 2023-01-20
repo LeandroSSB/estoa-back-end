@@ -1,5 +1,5 @@
-import { userSchema, loginSchema } from "./user.model.js"
+import { userSchema, loginSchema , userSchemaOpcional} from "./user.model.js"
 
 export {
-  userSchema, loginSchema
+  userSchema, loginSchema, userSchemaOpcional
 }
